@@ -68,7 +68,7 @@ const AccountInfo = ({ className, accountInfos: { ratio, address, threshold, key
             </div>
             <div className="ratio">
                 {ratio === -1
-                    ? "-"
+                    ? "- "
                     : ratio.toFixed(2)}%
             </div>
         </div>

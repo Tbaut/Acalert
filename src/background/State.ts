@@ -3,7 +3,7 @@ import { encodeAddress } from "@polkadot/util-crypto";
 import { AccountDeleteRequest, AccountUpdateRequest, CollateralType } from "~/types";
 
 const PRECISION = Math.pow(10, 6)
-const KARURA_PREFIX = 8
+export const KARURA_PREFIX = 8
 const STORAGE_PREFIX = 42
 const STORAGE_KEY_WATCHLIST = "Acalert_watchlist_v1"
 
