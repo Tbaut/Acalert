@@ -32,18 +32,7 @@ export async function getManifest() {
       128: './assets/icon-512.png',
     },
     permissions: [
-      'tabs',
       'storage',
-      'activeTab',
-      'http://*/',
-      'https://*/',
-    ],
-    content_scripts: [{
-      matches: ['http://*/*', 'https://*/*'],
-      js: ['./dist/contentScripts/index.global.js'],
-    }],
-    web_accessible_resources: [
-      'dist/contentScripts/style.css',
     ],
   }
 
@@ -55,7 +44,7 @@ export async function getManifest() {
     manifest.permissions?.push('webNavigation')
 
     // this is required on dev for Vite script to load
-    manifest.content_security_policy = `script-src \'self\' http://localhost:${port}; object-src \'self\'`
+    manifest.content_security_policy = `script-src 'self' http://localhost:${port}; object-src 'self'`
   }
 
   return manifest
