@@ -180,6 +180,10 @@ export default styled(AddEditAccount)(({ theme }) => `
         .Mui-disabled {
             -webkit-text-fill-color: ${theme.palette.text.color.disabled};
         }
+
+        .MuiSvgIcon-root {
+            color: ${theme.palette.text.color.primary};
+        }
     }
 
     .MuiInputBase-input, .MuiFormLabel-root, .MuiInputAdornment-root > p {

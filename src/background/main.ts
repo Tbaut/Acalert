@@ -73,8 +73,10 @@ if (import.meta.hot) {
 //   })
 //   .catch(e => console.error(e))
 
+// const provider = new WsProvider("wss://node-6870830370282213376.rz.onfinality.io/ws?apikey=0f273197-e4d5-45e2-b23e-03b015cb7000");
+// const provider = new WsProvider("wss://karura-rpc-1.aca-api.network");
+const provider = new WsProvider("wss://karura.api.onfinality.io/public-ws");
 
-const provider = new WsProvider("wss://karura-rpc-1.aca-api.network");
 const api = new ApiPromise(options({ provider }));
 
 

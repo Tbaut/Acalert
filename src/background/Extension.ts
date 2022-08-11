@@ -36,7 +36,7 @@ export default class Extension {
     }
 
     private handleAccountsGetInfo() {
-        this.#state.updateAlarm()
+        this.#state.updateIcon()
         return Object.entries(this.#state.watchlist).map(([key, value]) => ({ key, ...value }))
     }
 
