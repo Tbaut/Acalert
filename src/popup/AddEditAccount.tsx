@@ -34,11 +34,11 @@ const AddEditAccount = ({ className }: Props) => {
         setCollateral(value as CollateralType);
     }, []);
 
-    const onAddressChange = useCallback((event) => {
+    const onAddressChange = useCallback((event: any) => {
         setAddress(event.target.value)
     }, [])
 
-    const onThresholdChange = useCallback((event) => {
+    const onThresholdChange = useCallback((event: any) => {
         setThreshold(Number(event.target.value))
     }, [])
 
