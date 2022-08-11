@@ -84,7 +84,7 @@ export default class State {
         // console.log('totalDebit', totalDebit)
 
         // bail early to prevent division by 0 in case there's no debit.
-        if (totalDebit === 0n) return
+        if (totalDebit === BigInt(0)) return
 
         // (homa.totalStakingBonded + homa.toBondPool) / (tokens.totalIssuance[LKSM] + homa.totalVoidLiquid)
         const totalStakingBonded = (await this.#api.query.homa.totalStakingBonded()).toString()

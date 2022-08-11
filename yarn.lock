@@ -2462,15 +2462,10 @@ camelize@^1.0.0:
   resolved "https://registry.yarnpkg.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
   integrity sha512-W2lPwkBkMZwFlPCXhIlYgxu+7gC/NUlCtdK652DAJ1JdgV0sTrvuPFshNPrFa1TY2JOkLhgdeEBplB4ezEa+xg==
 
-caniuse-lite@^1.0.30001271:
-  version "1.0.30001271"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001271.tgz#0dda0c9bcae2cf5407cd34cac304186616cc83e8"
-  integrity sha512-BBruZFWmt3HFdVPS8kceTBIguKxu4f99n5JNp06OlPD/luoAMIaIK5ieV5YjnBLH3Nysai9sxj9rpJj4ZisXOA==
-
-caniuse-lite@^1.0.30001370:
-  version "1.0.30001374"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001374.tgz#3dab138e3f5485ba2e74bd13eca7fe1037ce6f57"
-  integrity sha512-mWvzatRx3w+j5wx/mpFN5v5twlPrabG8NqX2c6e45LCpymdoGqNvRkRutFUqpRTXKFQFNQJasvK0YT7suW6/Hw==
+caniuse-lite@^1.0.30001271, caniuse-lite@^1.0.30001370:
+  version "1.0.30001375"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001375.tgz"
+  integrity sha512-kWIMkNzLYxSvnjy0hL8w1NOaWNr2rn39RTAVyIwcw8juu60bZDWiF1/loOYANzjtJmy6qPgNmn38ro5Pygagdw==
 
 canvas-renderer@~2.2.0:
   version "2.2.1"
