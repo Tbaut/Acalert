@@ -1,0 +1,13 @@
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+}
+
+.icon-btn {
+  font-size: 0.9em;
+}

@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "incremental": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "~/*": [
+        "src/*"
+      ],
+      "@polkadot/types/lookup": [
+        "src/interfaces/types-lookup.ts"
+      ],
+      // here we replace the @polkadot/api augmentation with our own, generated from chain
+      "@polkadot/api/augment": [
+        "src/interfaces/augment-api.ts"
+      ],
+      // replace the augmented types with our own, as generated from definitions
+      "@polkadot/types/augment": [
+        "src/interfaces/augment-types.ts"
+      ],
+      "@mui/styled-engine": [
+        "./node_modules/@mui/styled-engine-sc"
+      ]
+    },
+    "jsx": "react-jsx"
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}
