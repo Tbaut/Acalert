@@ -19,7 +19,7 @@ The extension works on Firefox for now and only supports LKSM collateralized pos
 
 **This extension does not require any permission, it does NOT have access to your tabs or the website you navigate.**
 
-### Development
+## Development
 
 ```bash
 yarn dev
@@ -37,7 +37,7 @@ yarn start:firefox
 
 > While Vite handles HMR automatically in the most of the case, [Extensions Reloader](https://chrome.google.com/webstore/detail/fimgfedafeadlieiabdeeaodndnlbhid) is still recommanded for cleaner hard reloading.
 
-### Build
+## Build
 
 To build the extension, run
 
