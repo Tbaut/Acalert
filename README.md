@@ -12,8 +12,10 @@ The extension works on Firefox for now and only supports LKSM collateralized pos
 ## How to install Acalert on Firefox
 
 - Download the `.xpi` file in the asset section of the [latest release](https://github.com/Tbaut/Acalert/releases)
-- Visit [about:addons](about:addons)
-- click on the cog wheel and "Install Add-on From File"
+- Click on the Menu > Addons And Themes, or type in the address bar `about:addons`
+- Click on the cog wheel and "Install Add-on From File"
+- Select the `.xpi` file you downloaded in the first step
+- You should now see the Acalert extension, you can add the accounts you want to keep an eye on.
 
 **This extension does not require any permission, it does NOT have access to your tabs or the website you navigate.**
 
