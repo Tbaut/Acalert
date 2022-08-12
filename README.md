@@ -11,7 +11,11 @@ The extension works on Firefox for now and only supports LKSM collateralized pos
 
 ## How to install Acalert on Firefox
 
+- Download the `.xpi` file in the asset section of the [latest release](https://github.com/Tbaut/Acalert/releases)
+- Visit [about:addons](about:addons)
+- click on the cog wheel and "Install Add-on From File"
 
+**This extension does not require any permission, it does NOT have access to your tabs or the website you navigate.**
 
 ### Development
 
