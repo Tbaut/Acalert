@@ -1,7 +1,7 @@
 {
   "name": "acalert",
   "displayName": "Acalert",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Alert extension for Acala and Karura aUSD collateral positions",
   "private": true,
   "scripts": {

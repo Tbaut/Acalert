@@ -34,6 +34,7 @@ export async function getManifest() {
     permissions: [
       'storage',
     ],
+    content_security_policy: `script-src 'self' http://localhost:${port}; object-src 'self'`
   }
 
   if (isDev) {
@@ -44,7 +45,7 @@ export async function getManifest() {
     manifest.permissions?.push('webNavigation')
 
     // this is required on dev for Vite script to load
-    manifest.content_security_policy = `script-src 'self' http://localhost:${port}; object-src 'self'`
+    // manifest.content_security_policy = `script-src 'self' http://localhost:${port}; object-src 'self'`
   }
 
   return manifest
