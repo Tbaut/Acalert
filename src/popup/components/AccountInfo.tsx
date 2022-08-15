@@ -3,21 +3,18 @@ import Identicon from "@polkadot/react-identicon";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { useCallback, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import EditIcon from '@mui/icons-material/Edit';
-import { useAccounts } from "../context";
-import { WatchInfoWithKey } from "~/types";
+import { WatchListWithKey } from "~/types";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../messaging";
 
 interface Props {
     className?: string
-    accountInfos: WatchInfoWithKey
+    accountInfos: WatchListWithKey
 }
 
 const AccountInfo = ({ className, accountInfos: { ratio, address, threshold, key } }: Props) => {
     const [isOver, setIsOver] = useState(false);
-    const { refreshAccounts } = useAccounts()
     const navigate = useNavigate()
 
     const handleMouseEnter = useCallback(() => {
@@ -34,13 +31,8 @@ const AccountInfo = ({ className, accountInfos: { ratio, address, threshold, key
 
     const handleDeleteClick = useCallback(() => {
         deleteAccount({ accountKey: key })
-            .then(() => refreshAccounts())
             .catch(console.error)
-    }, [key, refreshAccounts])
-
-    const handleRefreshClick = useCallback(() => {
-        refreshAccounts()
-    }, [refreshAccounts])
+    }, [key])
 
     return (
         <div
@@ -50,7 +42,6 @@ const AccountInfo = ({ className, accountInfos: { ratio, address, threshold, key
             onFocus={() => console.log('focus')}
         >
             {isOver && (<div className="overMenu">
-                <RefreshIcon onClick={handleRefreshClick} className="menuIcon" />
                 <EditIcon onClick={handleEditClick} className="menuIcon" />
                 <DeleteIcon onClick={handleDeleteClick} className="menuIcon" />
             </div>

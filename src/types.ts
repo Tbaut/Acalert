@@ -32,9 +32,9 @@ export interface AccountDeleteRequest {
     accountKey: string;
 }
 
-export type WatchInfoResponse = WatchInfoWithKey[]
+export type FlatWatchList = WatchListWithKey[]
 
-export interface WatchInfoWithKey extends WatchInfo {
+export interface WatchListWithKey extends WatchInfo {
     key: string;
 }
 
@@ -48,10 +48,7 @@ export interface RequestSignatures {
     'pri(account.watch)': [AccountWatchRequest, boolean];
     "pri(account.delete)": [AccountDeleteRequest, void];
     'pri(account.update)': [AccountUpdateRequest, boolean];
-    "pri(accounts.getInfo)": [void, WatchInfoResponse]
     'pri(accounts.subscribe)': [RequestAccountSubscribe, boolean, WatchList];
-    // public/external requests, i.e. from a page
-    'pub(phishing.redirectIfDenied)': [null, boolean];
 }
 
 export type MessageTypes = keyof RequestSignatures;

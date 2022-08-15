@@ -1,5 +1,6 @@
 import { ApiPromise } from "@polkadot/api";
 import { encodeAddress } from "@polkadot/util-crypto";
+import { BehaviorSubject } from "rxjs";
 import { AccountDeleteRequest, AccountUpdateRequest, CollateralType } from "~/types";
 
 const PRECISION = Math.pow(10, 6)
@@ -19,13 +20,15 @@ export type WatchList = Record<string, WatchInfo>
 
 export default class State {
     readonly #api: ApiPromise;
-    watchlist: WatchList = {}
-    isIconRed = false;
-    isIconGray = true;
+    public readonly watchlist: WatchList = {}
+    #isIconRed = false;
+    #isIconGray = true;
+    public readonly watchListSubscriber: BehaviorSubject<WatchList> = new BehaviorSubject<WatchList>({});
 
     constructor(api: ApiPromise) {
         this.#api = api;
         this.watchlist = this.getWatchListFromStorage();
+        this.watchListSubscriber.next(this.watchlist)
         this.listenToNewBlocks();
     }
 
@@ -36,42 +39,49 @@ export default class State {
                 this.calculateRatio(token1, token2, encodeAddress(address, KARURA_PREFIX))
             )
             Promise.all(calculateAllRatios)
-                .then(() => this.updateIcon())
+                .then(() => {
+                    this.udateWatchListSubscriber()
+                    this.updateIcon()
+                })
                 .catch(console.error)
         });
     }
 
-    public updateIcon = () => {
+    private udateWatchListSubscriber() {
+        this.watchListSubscriber.next(this.watchlist)
+    }
+
+    public updateIcon() {
         const shouldHaveIconRed = Object.values(this.watchlist).some((account) => {
             const isbelow = this.isRatioBelowThreshold(account)
-            // console.log(account.address, account.ratio, isbelow)
             return isbelow
         })
 
-        if (shouldHaveIconRed && !this.isIconRed) {
+        if (shouldHaveIconRed && !this.#isIconRed) {
             this.turnIconRed()
         }
 
         // at first run the icon is gray, we should turn it green
         // to tell the user that the ratios look good
-        if (!shouldHaveIconRed && (this.isIconRed || this.isIconGray)) {
+        if (!shouldHaveIconRed && (this.#isIconRed || this.#isIconGray)) {
             this.turnIconGreen()
         }
     }
 
-    private turnIconRed = () => {
+    private turnIconRed() {
         browser.browserAction.setIcon({ path: "/assets/RedDot.svg" })
-        this.isIconRed = true
+        this.#isIconRed = true
     }
 
-    private turnIconGreen = () => {
+    private turnIconGreen() {
         browser.browserAction.setIcon({ path: "/assets/GreenDot.svg" })
-        this.isIconRed = false
+        this.#isIconRed = false
     }
 
     private isRatioBelowThreshold(account: WatchInfo) {
         return account.ratio !== -1 && account.ratio < account.threshold
     }
+
     public getAccountKey(address: string, token1: string) {
         return `${encodeAddress(address, STORAGE_PREFIX)}_${token1}`
     }
@@ -128,6 +138,7 @@ export default class State {
         }
 
         this.storeWatchList()
+        this.udateWatchListSubscriber()
         this.updateIcon()
         return true
     }
@@ -147,6 +158,7 @@ export default class State {
         }
 
         this.storeWatchList()
+        this.udateWatchListSubscriber()
         this.updateIcon()
         return true
     }
@@ -166,6 +178,7 @@ export default class State {
 
         delete this.watchlist[accountKey]
         this.storeWatchList()
+        this.udateWatchListSubscriber()
         this.updateIcon()
     }
 }

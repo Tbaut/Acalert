@@ -21,7 +21,7 @@ const AddEditAccount = ({ className }: Props) => {
     const [collateral, setCollateral] = useState<CollateralType>("LKSM")
     const [address, setAddress] = useState("")
     const isEditing = useMemo(() => !!accountKey, [accountKey])
-    const { accounts, refreshAccounts } = useAccounts()
+    const { accounts } = useAccounts()
     const account = useMemo(() => {
         if (!accountKey) return
 
@@ -50,7 +50,6 @@ const AddEditAccount = ({ className }: Props) => {
         watchAccount({ address, token1: collateral, token2: "KSM", threshold })
             .then((res) => {
                 if (res) {
-                    refreshAccounts()
                     onGoBack()
                     return
                 }
@@ -58,7 +57,7 @@ const AddEditAccount = ({ className }: Props) => {
                 console.error('Something wrong happened when adding account')
             })
             .catch(console.error)
-    }, [address, collateral, onGoBack, refreshAccounts, threshold])
+    }, [address, collateral, onGoBack, threshold])
 
     const updateAccountThreshold = useCallback(() => {
         if (!accountKey) {
@@ -69,7 +68,6 @@ const AddEditAccount = ({ className }: Props) => {
         updateAccount({ accountKey, threshold })
             .then((res) => {
                 if (res) {
-                    refreshAccounts()
                     onGoBack()
                     return
                 }
@@ -77,7 +75,7 @@ const AddEditAccount = ({ className }: Props) => {
                 console.error('Something wrong happened when updating account')
             })
             .catch(console.error)
-    }, [accountKey, onGoBack, refreshAccounts, threshold])
+    }, [accountKey, onGoBack, threshold])
 
     const onSave = useCallback(() => {
         if (isEditing) {

@@ -1,6 +1,6 @@
 import { WatchList } from "~/background/State";
 import { PORT_EXTENSION } from "~/constants";
-import { AccountDeleteRequest, AccountUpdateRequest, AccountWatchRequest, Message, MessageTypes, MessageTypesWithNoSubscriptions, MessageTypesWithNullRequest, MessageTypesWithSubscriptions, RequestTypes, ResponseTypes, SubscriptionMessageTypes, WatchInfoResponse } from "~/types";
+import { AccountDeleteRequest, AccountUpdateRequest, AccountWatchRequest, Message, MessageTypes, MessageTypesWithNoSubscriptions, MessageTypesWithNullRequest, MessageTypesWithSubscriptions, RequestTypes, ResponseTypes, SubscriptionMessageTypes } from "~/types";
 import { getId } from "~/utils/getId";
 
 interface Handler {
@@ -63,10 +63,6 @@ export async function deleteAccount(request: AccountDeleteRequest): Promise<void
 
 export async function updateAccount(request: AccountUpdateRequest): Promise<boolean> {
     return sendMessage('pri(account.update)', request);
-}
-
-export async function getAccountsInfo(): Promise<WatchInfoResponse> {
-    return sendMessage('pri(accounts.getInfo)', undefined);
 }
 
 export async function subscribeAccounts(cb: (accounts: WatchList) => void): Promise<boolean> {

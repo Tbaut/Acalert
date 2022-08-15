@@ -1,40 +1,31 @@
-import React, { ReactNode, useCallback, useEffect, useState } from "react"
-import { WatchInfoResponse } from "~/types";
-import { getAccountsInfo, subscribeAccounts } from "../messaging";
+import React, { ReactNode, useEffect, useState } from "react"
+import { FlatWatchList } from "~/types";
+import { subscribeAccounts } from "../messaging";
 
 type AccountsContextProviderProps = {
     children: ReactNode | ReactNode[]
 }
 
 interface AccountsContextProps {
-    accounts: WatchInfoResponse;
-    refreshAccounts: () => void;
+    accounts: FlatWatchList;
 }
 
 const AccountsContext = React.createContext<AccountsContextProps | undefined>(undefined)
 
 const AccountsContextProvider = ({ children }: AccountsContextProviderProps) => {
-    const [accounts, setAccounts] = useState<WatchInfoResponse>([]);
-    console.log('hop')
-
-    const refreshAccounts = useCallback(() => {
-        getAccountsInfo()
-            .then(setAccounts)
-            .catch(console.error)
-    }, [])
+    const [accounts, setAccounts] = useState<FlatWatchList>([]);
 
     useEffect(() => {
-        refreshAccounts()
-        console.log('subscribe')
-        subscribeAccounts((res) => console.log(res))
+        subscribeAccounts((res) => {
+            setAccounts(Object.entries(res).map(([key, value]) => ({ key, ...value })))
+        })
             .catch(console.error)
-    }, [refreshAccounts])
+    }, [])
 
     return (
         <AccountsContext.Provider
             value={{
-                accounts,
-                refreshAccounts
+                accounts
             }}
         >
             {children}
