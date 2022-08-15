@@ -1,3 +1,4 @@
+import { WatchList } from "~/background/State";
 import { PORT_EXTENSION } from "~/constants";
 import { AccountDeleteRequest, AccountUpdateRequest, AccountWatchRequest, Message, MessageTypes, MessageTypesWithNoSubscriptions, MessageTypesWithNullRequest, MessageTypesWithSubscriptions, RequestTypes, ResponseTypes, SubscriptionMessageTypes, WatchInfoResponse } from "~/types";
 import { getId } from "~/utils/getId";
@@ -66,4 +67,8 @@ export async function updateAccount(request: AccountUpdateRequest): Promise<bool
 
 export async function getAccountsInfo(): Promise<WatchInfoResponse> {
     return sendMessage('pri(accounts.getInfo)', undefined);
+}
+
+export async function subscribeAccounts(cb: (accounts: WatchList) => void): Promise<boolean> {
+    return sendMessage('pri(accounts.subscribe)', null, cb);
 }

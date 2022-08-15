@@ -15,9 +15,11 @@ export interface WatchInfo {
     threshold: number;
 }
 
+export type WatchList = Record<string, WatchInfo>
+
 export default class State {
     readonly #api: ApiPromise;
-    watchlist: Record<string, WatchInfo> = {}
+    watchlist: WatchList = {}
     isIconRed = false;
     isIconGray = true;
 

@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react"
 import { WatchInfoResponse } from "~/types";
-import { getAccountsInfo } from "../messaging";
+import { getAccountsInfo, subscribeAccounts } from "../messaging";
 
 type AccountsContextProviderProps = {
     children: ReactNode | ReactNode[]
@@ -15,6 +15,7 @@ const AccountsContext = React.createContext<AccountsContextProps | undefined>(un
 
 const AccountsContextProvider = ({ children }: AccountsContextProviderProps) => {
     const [accounts, setAccounts] = useState<WatchInfoResponse>([]);
+    console.log('hop')
 
     const refreshAccounts = useCallback(() => {
         getAccountsInfo()
@@ -24,6 +25,9 @@ const AccountsContextProvider = ({ children }: AccountsContextProviderProps) => 
 
     useEffect(() => {
         refreshAccounts()
+        console.log('subscribe')
+        subscribeAccounts((res) => console.log(res))
+            .catch(console.error)
     }, [refreshAccounts])
 
     return (

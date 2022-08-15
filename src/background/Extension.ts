@@ -2,7 +2,8 @@ import { AccountDeleteRequest, AccountUpdateRequest, AccountWatchRequest, Messag
 import State from "./State";
 import browser from "webextension-polyfill";
 import { ApiPromise } from "@polkadot/api";
-// import { createSubscription, unsubscribe } from "./subscriptions";
+import { createSubscription, unsubscribe } from "./subscriptions";
+import { interval } from "rxjs";
 
 export default class Extension {
     readonly #state: State;
@@ -11,19 +12,28 @@ export default class Extension {
         this.#state = state;
     }
 
-    // private accountsSubscribe(id: string, port: browser.Runtime.Port): boolean {
-    //     const cb = createSubscription<'pri(accounts.subscribe)'>(id, port);
-    //     const subscription = accountsObservable.subject.subscribe((accounts: SubjectInfo): void =>
-    //         cb(accounts)
-    //     );
+    private accountsSubscribe(id: string, port: browser.Runtime.Port): boolean {
+        const cb = createSubscription<'pri(accounts.subscribe)'>(id, port);
 
-    //     port.onDisconnect.addListener((): void => {
-    //         unsubscribe(id);
-    //         subscription.unsubscribe();
-    //     });
+        const subscription = interval(1000).subscribe((someNumb): void =>
+            cb({
+                "hey": {
+                    address: someNumb.toString(),
+                    threshold: 42,
+                    ratio: 43,
+                    token1: "LKSM",
+                    token2: "KSM"
+                }
+            })
+        );
 
-    //     return true;
-    // }
+        port.onDisconnect.addListener((): void => {
+            unsubscribe(id);
+            subscription.unsubscribe();
+        });
+
+        return true;
+    }
 
     private handleAddWatchingAccount({ address, token1, token2, threshold }: AccountWatchRequest) {
         return this.#state.addWatchingAddress(address, token1, token2, threshold)
@@ -51,8 +61,8 @@ export default class Extension {
                 return this.handleDeleteWatchingAccount(request as AccountDeleteRequest)
             case 'pri(accounts.getInfo)':
                 return this.handleAccountsGetInfo()
-            // case 'pri(accounts.subscribe)':
-            //     return this.accountsSubscribe(id, port);
+            case 'pri(accounts.subscribe)':
+                return this.accountsSubscribe(id, port);
             default:
                 throw new Error(`Unable to handle message of type ${type}`);
         }

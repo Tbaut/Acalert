@@ -1,4 +1,4 @@
-import { WatchInfo } from "./background/State";
+import { WatchInfo, WatchList } from "./background/State";
 
 type IsNull<T, K extends keyof T> = { [K1 in Exclude<keyof T, K>]: T[K1] } & T[K] extends null ? K : never;
 
@@ -41,12 +41,15 @@ export interface WatchInfoWithKey extends WatchInfo {
 export const collaterals = ["LKSM"] as const
 export type CollateralType = typeof collaterals[number]
 
+export type RequestAccountSubscribe = null;
+
 export interface RequestSignatures {
     // private/internal requests, i.e. from a popup
     'pri(account.watch)': [AccountWatchRequest, boolean];
     "pri(account.delete)": [AccountDeleteRequest, void];
     'pri(account.update)': [AccountUpdateRequest, boolean];
     "pri(accounts.getInfo)": [void, WatchInfoResponse]
+    'pri(accounts.subscribe)': [RequestAccountSubscribe, boolean, WatchList];
     // public/external requests, i.e. from a page
     'pub(phishing.redirectIfDenied)': [null, boolean];
 }
